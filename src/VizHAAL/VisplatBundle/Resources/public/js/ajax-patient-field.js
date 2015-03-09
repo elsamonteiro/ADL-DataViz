@@ -12,6 +12,9 @@ function updateGraph(patientId, startDate, endDate) {
     else if ($("#chordDiagram").length && $('#chordDiagram').length) {
         route = 'vizhaal_visplat_dependency';
     }
+    else if ($("#heatMapContainerWrapper").length && $('#heatMapContainer').length) {
+        route = 'vizhaal_visplat_sensors';
+    }
     $.ajax({
         type: "POST",
         url: Routing.generate('vizhaal_visplat_ajax_update_patient'),
@@ -36,6 +39,11 @@ function updateGraph(patientId, startDate, endDate) {
             if ($('#statustable').length) {
                 document.getElementById('statustable').innerHTML = '';
                 createStatusTable(data['statusTable']);
+            }
+            if ($('#heatMapContainerWrapper').length) {
+                document.getElementById('heatMapContainer').innerHTML = '';
+                document.getElementById('heatmapTable').innerHTML = '';
+                createHeatMap(data['mapUrl'], data['data'], data['details']);
             }
             // Create responsive
             createResponsive();

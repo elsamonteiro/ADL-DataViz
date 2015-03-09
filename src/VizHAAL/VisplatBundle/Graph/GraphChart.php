@@ -124,4 +124,25 @@ class GraphChart
         return json_encode($data);
     }
 
+
+    /**
+     * Create a heat map
+     * @param $sensorEvents all events from DB
+     * @return  a three dimensional arrays
+     */
+    public static function createHeatMap($sensorsEvents)
+    {
+        foreach ($sensorsEvents as $eachEvent) {
+            $subdata['x'] = $eachEvent['X'];
+            $subdata['y'] = $eachEvent['Y'];
+            $subdata['value'] = $eachEvent['Frequency'];
+            $subdata2['AvgDuration'] = $eachEvent['Time'];
+            $subdata2['Frequency'] = $eachEvent['Frequency'];
+            $subdata2['Sensor'] = $eachEvent['name'];
+            $data[] = $subdata;
+            $dataDetails[] = $subdata2;
+        }
+        return array('data' => $data, 'details' => $dataDetails);
+    }
+
 }

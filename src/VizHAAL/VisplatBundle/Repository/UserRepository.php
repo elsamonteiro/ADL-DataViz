@@ -193,4 +193,49 @@ class UserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
+    /**
+     * Fetch all sensors events
+     *
+     * @return mixed, Array of events
+     */
+    public function findAllGroupBySensorEvent($patientId, $startDate, $endDate)
+    {
+        $sql = "
+            SELECT `sensor_id`, COUNT(`sensor_id`) AS Frequency,
+            `xposition` AS X, `yposition` AS Y, `name`,
+            AVG(TIMESTAMPDIFF( SECOND, `begin`, `end`)) AS Time
+            FROM `SENSORDATA_" . $patientId . "` AS sd
+            RIGHT JOIN `SENSOR_" . $patientId . "` AS s
+            ON sd.sensor_id = s.id  
+            WHERE DATE(`begin`)
+            BETWEEN
+            STR_TO_DATE(:startDate,'%d/%b/%Y')
+            AND
+            STR_TO_DATE(:endDate,'%d/%b/%Y')
+            GROUP BY `sensor_id`;
+        ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->bindValue('startDate', $startDate);
+        $stmt->bindValue('endDate', $endDate);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Fetch url of the map
+     *
+     * @return mixed, url string
+     */
+    public function findMap($patientId)
+    {
+        $sql = "
+            SELECT `url`
+            FROM `Map`
+            WHERE patientId_id=". $patientId . ";
+        ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result[0]['url'];
+    }
 }

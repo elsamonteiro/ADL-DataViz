@@ -1,0 +1,23 @@
+VizHAAL\VisplatBundle\Entity\Map:
+    type: entity
+    table: Map
+    repositoryClass: VizHAAL\VisplatBundle\Repository\MapRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        url:
+            type: string
+            length: 255
+    oneToOne:
+        patientId:
+            targetEntity: User
+            inversedBy: map
+            joinColumn:
+                patientID:
+                    referencedColumnName: id
+                    onDelete: "SET NULL"
+    lifecycleCallbacks: {  }

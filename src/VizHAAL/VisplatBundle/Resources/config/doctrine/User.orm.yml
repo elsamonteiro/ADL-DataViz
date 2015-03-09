@@ -35,18 +35,25 @@ VizHAAL\VisplatBundle\Entity\User:
         data:
             targetEntity: Data
             mappedBy: patientId
-
-#   Self-references of doctorId
+    oneToOne:
+        map:
+            targetEntity: Map
+            mappedBy: patientId
     oneToMany:
-        patients:
-            targetEntity: User
-            mappedBy: doctorId
+        sensors:
+            targetEntity: Sensor
+            mappedBy: patientId
+#   Self-references of doctorId
     manyToOne:
         doctorId:
             targetEntity: User
             inversedBy: patients
             joinColumn: 
                 onDelete: "SET NULL"
+    oneToMany:
+        patients:
+            targetEntity: User
+            mappedBy: doctorId
 
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]

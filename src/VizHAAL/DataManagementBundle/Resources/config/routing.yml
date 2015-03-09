@@ -5,3 +5,7 @@ vizhaal_data_management_transform:
 vizhaal_data_management_import:
     pattern:  /import
     defaults: { _controller: VizHAALDataManagementBundle:Default:import }
+
+vizhaal_home_data_management_import:
+    pattern:  /home_import
+    defaults: { _controller: VizHAALDataManagementBundle:Default:homeImport }

@@ -169,6 +169,8 @@ class VisplatController extends Controller
                 $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
             } elseif ($patient->route == 'vizhaal_visplat_dependency') {
                 $graphJSON = $this->createDependencyGraph($patient->id, $patient->startDate, $patient->endDate);
+            } elseif ($patient->route == 'vizhaal_visplat_sensors') {
+                $graphJSON = $this->createSensorsGraph($patient->id, $patient->startDate, $patient->endDate);
             }
         } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
             // Get current user
@@ -308,5 +310,37 @@ class VisplatController extends Controller
         // Get first date of the patient
         $startDate = $em->getRepository('VizHAALVisplatBundle:User')->findFirstEventDate($patientId);
         return $startDate;
+    }
+
+    /**
+     * Generate Heat map
+     * @param Request $request
+     * @return Response
+     */
+    public function sensorsAction(Request $request)
+    {
+        // Redirect admin to Admin page
+        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN') && $this->get('security.context')->isGranted('ROLE_ADMIN') == false) {
+            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
+        }
+        $patientId = $this->getDefaultPatient();
+        $startDate = $this->getDefaultDate($patientId);
+        $eventMatrix = $this->createSensorsGraph($patientId, $startDate, $startDate);
+        return $this->render('VizHAALVisplatBundle:Graph:sensors.html.twig', array(
+            'mapUrl' => $eventMatrix['mapUrl'],
+            'data' => $eventMatrix['data'],
+            'details' => $eventMatrix['details']
+        ));
+    }
+
+    public function createSensorsGraph($patientId, $startDate, $endDate)
+    {
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        $mapUrl = $em->getRepository('VizHAALVisplatBundle:User')->findMap($patientId);
+        $sensorsEvents = $em->getRepository('VizHAALVisplatBundle:User')->findAllGroupBySensorEvent($patientId, $startDate, $endDate);
+        $dataMatrix = GraphChart::createHeatMap($sensorsEvents);
+        return array('mapUrl' => $mapUrl, 'data' => $dataMatrix['data'], 'details' => $dataMatrix['details']);
+
     }
 }

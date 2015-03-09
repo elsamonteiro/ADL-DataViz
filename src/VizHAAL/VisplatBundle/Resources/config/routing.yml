@@ -6,6 +6,10 @@ vizhaal_visplat_dependency:
     pattern: /dependency
     defaults: { _controller: VizHAALVisplatBundle:Visplat:dependency}
 
+vizhaal_visplat_sensors:
+    pattern: /sensors
+    defaults: { _controller: VizHAALVisplatBundle:Visplat:sensors}
+
 vizhaal_visplat_ajax_update_patient:
     pattern: /ajax/patient
     defaults: { _controller: VizHAALVisplatBundle:Visplat:handleAjaxUpdatePatient}

@@ -1,0 +1,33 @@
+VizHAAL\VisplatBundle\Entity\Sensor:
+    type: entity
+    table: Sensor
+    repositoryClass: VizHAAL\VisplatBundle\Repository\SensorRepository
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        xposition:
+            type: integer
+        yposition:
+            type: integer
+    manyToOne:
+        patientId:
+            targetEntity: User
+            inversedBy: sensors
+            joinColumns:
+                patientID:
+                    referencedColumnName: id
+                    onDelete: "SET NULL"
+            cascade: ["persist", "merge"]
+    oneToMany:
+        sensorsData:
+            targetEntity: SensorData
+            mappedBy: sensor
+    lifecycleCallbacks: {  }

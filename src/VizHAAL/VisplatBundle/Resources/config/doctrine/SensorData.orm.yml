@@ -1,0 +1,25 @@
+VizHAAL\VisplatBundle\Entity\SensorData:
+    type: entity
+    table: null
+    repositoryClass: VizHAAL\VisplatBundle\Entity\SensorDataRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        begin:
+            type: datetime
+        end:
+            type: datetime
+    manyToOne:
+        sensor:
+            targetEntity: Sensor
+            inversedBy: sensorsData
+            joinColumns:
+                sensor:
+                    referencedColumnName: id
+                    onDelete: "SET NULL"
+            cascade: ["persist", "merge"]
+    lifecycleCallbacks: {  }

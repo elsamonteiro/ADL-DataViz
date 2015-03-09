@@ -1,0 +1,14 @@
+Microwave	932	139
+Hall-Toilet door	428	528 
+Hall-Bathroom door	425	392
+Cups cupboard	669	68
+Fridge	906	128
+Plates cupboard	939	68   
+Frontdoor	519	716 
+Dishwasher	710	130  
+ToiletFlush	253	562 
+Freezer	836	130
+Pans Cupboard	730	66
+Washingmachine	772	128
+Groceries Cupboard	824	65
+Hall-Bedroom door	516	462 
