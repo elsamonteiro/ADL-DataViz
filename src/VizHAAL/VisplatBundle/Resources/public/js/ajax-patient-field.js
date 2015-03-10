@@ -45,6 +45,14 @@ function updateGraph(patientId, startDate, endDate) {
                 document.getElementById('heatmapTable').innerHTML = '';
                 createHeatMap(data['mapUrl'], data['data'], data['details']);
             }
+            if ($('#circularHeatChart').length) {
+                document.getElementById('circularHeatChart').innerHTML = '';
+                createCircularHeatChart(data['circularHeatChartLabels'], data['circularHeatChartData']);
+            }
+            if ($('#treeMap').length) {
+                document.getElementById('treeMap').innerHTML = '';
+                createTreeMap(data['treeMap']);
+            }
             // Create responsive
             createResponsive();
         },

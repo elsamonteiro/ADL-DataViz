@@ -201,7 +201,7 @@
 
 /*Pie Chart*/
 
-#piechart {
+#circularHeatChart, #piechart {
     height: 100%;
     margin: 10px;
 }
@@ -307,4 +307,37 @@ td {
     width:100%; 
     height:100%;
     
+}
+
+/* Circular Chart*/
+
+/*#circularHeatChart svg {
+   min-width: 400px;
+}*/
+.circular-heat {
+    min-width:400px;
+}
+
+.labels {
+    fill: #888;
+    font-weight: 200;
+    letter-spacing: -1px;
+}
+
+.labels.segment {
+    fill: #30ADDB;
+    font-size: 100%;
+}
+
+/* TreeMap Chart */
+
+
+.node {
+    margin-top: 2%;
+    border: solid 1px white;
+    font: 100% sans-serif;
+    line-height: 12px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: 2px;
 }

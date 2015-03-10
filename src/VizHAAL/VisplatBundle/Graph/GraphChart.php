@@ -126,8 +126,8 @@ class GraphChart
 
 
     /**
-     * Create a heat map
-     * @param $sensorEvents all events from DB
+     * Create a heat map data
+     * @param $sensorEvents all sensors events from DB
      * @return  a three dimensional arrays
      */
     public static function createHeatMap($sensorsEvents)
@@ -145,4 +145,74 @@ class GraphChart
         return array('data' => $data, 'details' => $dataDetails);
     }
 
+    /**
+     * Create circular heat chart data
+     * @param $Events all events from DB
+     * @return  a three dimensional arrays
+     */
+    public static function createCircularHeatChart($Events)
+    {
+
+        // get distincts events list and unique index
+        $indexEvent = 0;
+        $listeEvents[] = 0;
+        foreach ($Events as $eachEvent) {
+            if(!array_key_exists($eachEvent['taskName'], $listeEvents))
+            {
+                $listeEvents[$eachEvent['taskName']] = $indexEvent;
+                $indexEvent += 1;
+            }
+        }
+
+        // prepare data
+        $data = array_fill(0, sizeof($listeEvents)*24, 0);
+        foreach ($Events as $eachEvent) {
+            $date = strtotime($eachEvent['startDate']);
+            $dateIndex = intval(date('G', $date));
+            $index1 = $listeEvents[$eachEvent['taskName']];
+            $data[$index1*24+$dateIndex]+=1;
+        }
+        return array('labels' => array_flip($listeEvents), 'data' => $data);
+    }
+
+    /**
+     * Create tree map data
+     * @param $Events all events from DB
+     * @return  JSON data
+     */
+    public static function createTreeMap($allEvents, $distinctEvents)
+    {
+        
+        // initialize data with distincts events list
+        $data = array();
+        $data['name'] = "TreeMap";
+        $data['children'] = array();
+        foreach ($distinctEvents as $eachEvent) {
+            $subdata = array();
+            $subdata['name']= $eachEvent['taskName'];
+            foreach ($distinctEvents as $eachEvent2) {
+                $subdataname['name'] = $eachEvent['taskName'] . " -> " . $eachEvent2['taskName'];
+                $subdataname['value'] = 0;
+                $subdata['children'][] = $subdataname;
+            }
+            $data['children'][] = $subdata;
+        }
+        // get list of events
+        $listDistinctEvents = array();
+        foreach ($distinctEvents as $eachEvent) {
+            $listDistinctEvents[] = $eachEvent['taskName'];
+        }
+        $listDistinctEvents = array_flip($listDistinctEvents);
+
+        //$listEvents = array();
+        //foreach ($allEvents as $event) {
+        //    $listEvents[] = $event['taskName'];
+        //}
+        //prepare data
+        for ($i = 0; $i < sizeof($allEvents)-1; $i++) {
+            $data['children'][$listDistinctEvents[$allEvents[$i]['taskName']]]['children'][$listDistinctEvents[$allEvents[$i+1]['taskName']]]['value']+=1;
+        }
+
+        return json_encode($data);
+    }
 }

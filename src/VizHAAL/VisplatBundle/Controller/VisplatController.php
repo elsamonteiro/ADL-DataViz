@@ -29,7 +29,7 @@ class VisplatController extends Controller
         // Create Status Graph, passing the first patient'id order by name
         $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('VizHAALVisplatBundle:Graph:status.html.twig', array(
-            'jsonDataPieChart' => $graphJSON['pieChart'], 'jsonStatusTable' => $graphJSON['statusTable'], 
+            'jsonDataPieChart' => $graphJSON['pieChart'], 'jsonStatusTable' => $graphJSON['statusTable'], 'circularHeatChartLabels' => $graphJSON['circularHeatChartLabels'], 'circularHeatChartData' => $graphJSON['circularHeatChartData']
 
         ));
     }
@@ -232,6 +232,7 @@ class VisplatController extends Controller
         $em = $this->getDoctrine()->getManager();
         $pieEvents = $em->getRepository('VizHAALVisplatBundle:User')->findAllGroupByEvent($patientId, $startDate, $endDate);
 		$jsonStatusTable = $em->getRepository('VizHAALVisplatBundle:User')->findLastTime($patientId, $startDate, $endDate);
+        $circularHeatChartEvents = $em->getRepository('VizHAALVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
@@ -244,7 +245,8 @@ class VisplatController extends Controller
         $diff = $startDateFormat->diff($endDateFormat);
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents, $diff->days + 1);
 		$jsonStatusTable = GraphChart::createStatusTable($jsonStatusTable);
-        return array('pieChart' => $jsonDataPieChart, 'statusTable'=>$jsonStatusTable);
+        $circularHeatChartMatrix = GraphChart::createCircularHeatChart($circularHeatChartEvents);
+        return array('pieChart' => $jsonDataPieChart, 'statusTable'=>$jsonStatusTable, 'circularHeatChartLabels' => $circularHeatChartMatrix['labels'], 'circularHeatChartData' => $circularHeatChartMatrix['data']);
     }
 
     /**
@@ -264,7 +266,8 @@ class VisplatController extends Controller
         return $this->render('VizHAALVisplatBundle:Graph:dependency.html.twig', array(
             'events' => $eventMatrix['events'],
             'matrix' => $eventMatrix['matrix'],
-            'jsonDataGanttChart' => $eventMatrix['ganttChart']
+            'jsonDataGanttChart' => $eventMatrix['ganttChart'],
+            'jsonDataTreeMap' => $eventMatrix['treeMap']
         ));
     }
 
@@ -280,7 +283,8 @@ class VisplatController extends Controller
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
         $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        return array('events' => $eventsMatrix['events'], 'matrix' => $eventsMatrix['matrix'], 'ganttChart' => $jsonDataGanttChart);
+        $jsonDataTreeMap = GraphChart::createTreeMap($allEvents, $distinctEvents);
+        return array('events' => $eventsMatrix['events'], 'matrix' => $eventsMatrix['matrix'], 'ganttChart' => $jsonDataGanttChart, 'treeMap' => $jsonDataTreeMap);
 
     }
 
