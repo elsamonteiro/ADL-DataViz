@@ -194,7 +194,7 @@
         width:15%;
     }
 
-    #heatMapContainerWrapper, #heatmapTable {
+    #heatMapContainerWrapper, #heatmapTable, #circularHeatChart, #treeMap {
         padding-left:0;
     }
 }

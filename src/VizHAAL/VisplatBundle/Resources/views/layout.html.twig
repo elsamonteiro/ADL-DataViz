@@ -40,6 +40,8 @@
                     {# Render patients selector #}
                     {% if is_granted('ROLE_ADMIN') %}
                         {% render(controller('VizHAALVisplatBundle:Visplat:patientForm')) %}
+                        <a class ="navbar-form navbar-right" href="{{ asset('bundles/vizhaalvisplat/images/utilisationGuide_full.pdf') }}" target="blank" title="user guide"><img id ="pdf-button" src="{{ asset('bundles/vizhaalvisplat/images/pdf128x128.png') }}" /></a>
+                    {% else %}
                         <a class ="navbar-form navbar-right" href="{{ asset('bundles/vizhaalvisplat/images/pdf128x128.png') }}" target="blank" title="user guide"><img id ="pdf-button" src="{{ asset('bundles/vizhaalvisplat/images/pdf128x128.png') }}" /></a>
                     {% endif %}
                     <ul class="nav navbar-nav pull-right">

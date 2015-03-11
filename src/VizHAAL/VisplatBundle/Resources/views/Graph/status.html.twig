@@ -40,10 +40,9 @@
         </div>
         <div class="col-lg-7 col-lg-pull-4 col-md-7 col-sm-pull-4 col-sm-7 col-xs-12" id="piechartTable">
         </div>
-        {% endif %}
-
     </div>
     <script>createPieChart({{ jsonDataPieChart|json_encode|raw }})</script>
+    {% endif %}
 
         <!-- Circular Heat Chart -->
     <script src="{{ asset('bundles/vizhaalvisplat/js/circularheatchart.js') }}"></script>
