@@ -25,17 +25,17 @@ It can be used with all devices (computer, tablet, mobile phone), and in most fa
 
 ## User guide
 
-The system is composed of three roles of user - **Patient/relatives**, **Medical staff**, and **Administrator**. Each role has different privilege to access contents. See more details on [wiki](https://github.com/lvarayut/S5/wiki/User-Guide) page.
+The system is composed of three roles of user - **Patient/relatives**, **Medical staff**, and **Administrator**. Each role has different privilege to access contents. See more details on [wiki](https://github.com/elsamonteiro/ADL-DataViz/wiki/User-Guide) page.
 
 ## Developer guide
 
-Developer guide describes clearly the procedure of **installation**, **Architecture**, and **Back-end site**. These should be very useful for developer to understand comprehensively in our system before improving it. See more details on [wiki](https://github.com/lvarayut/S5/wiki/Developer-Guide) page.
+Developer guide describes clearly the procedure of **installation**, **Architecture**, and **Back-end site**. These should be very useful for developer to understand comprehensively in our system before improving it. See more details on [wiki](https://github.com/elsamonteiro/ADL-DataViz/wiki/Developer-Guide) page.
 
 **Note:** Developer should understand the basic of [Symfony2](http://symfony.com) and the concept of [MVC](http://en.wikipedia.org/wiki/Model–view–controller) in order to be able to develop efficiently. 
 
 ## Further Development
 
-We have planed to develop a lot of features that could make our system nicer, however, some of them cannot be done due to the limited time. Therefore, all the features are listed here, on [wiki](https://github.com/lvarayut/S5/wiki/Further-Development),  to be a guideline for developer.
+We have planed to develop a lot of features that could make our system nicer, however, some of them cannot be done due to the limited time. Therefore, all the features are listed here, on [wiki](https://github.com/elsamonteiro/ADL-DataViz/wiki/Further-Development),  to be a guideline for developer.
 
 
 ## Feedback
