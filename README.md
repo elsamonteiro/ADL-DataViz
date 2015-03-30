@@ -3,7 +3,7 @@
 **Symfony2**: [![Symfony2 version](https://badge.fury.io/gh/symfony%2Fsymfony.png)](http://badge.fury.io/gh/symfony%2Fsymfony) 
 **Bootstrap**: [![Bootstrap version](https://badge.fury.io/gh/twbs%2Fbootstrap.png)](http://badge.fury.io/gh/twbs%2Fbootstrap) 
 **D3JS**: [![D3JS version](https://badge.fury.io/gh/mbostock%2Fd3.png)](http://badge.fury.io/gh/mbostock%2Fd3)
-**Heatmap**: [![heatmap version](https://badge.fury.io/gh/pa7%2Fheatmap.js.svg)](http://badge.fury.io/gh/pa7%2Fheatmap.js)
+**Heatmap**: [![GitHub version](https://badge.fury.io/gh/pa7%2Fheatmap.js.png)](http://badge.fury.io/gh/pa7%2Fheatmap.js)
 
 ## Introduction 
 
